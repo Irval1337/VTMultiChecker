@@ -10,7 +10,7 @@ res = [0]*100000
 count = 0
 directory = os.path.abspath(__file__)[:os.path.abspath(__file__).rfind('\\')]
 api_url = 'https://www.virustotal.com/vtapi/v2/file/scan'
-params = dict(apikey='a6c03306bd03edfe9d5da06c443e8ab543959734898339bdc7dbee91bbfa3c0c')
+params = dict(apikey='')
 i = 0
 def ScanFile(f, i1):
     global count
