@@ -10,10 +10,10 @@ res = [0]*100000
 count = 0
 directory = os.path.abspath(__file__)[:os.path.abspath(__file__).rfind('\\')]
 api_url = 'https://www.virustotal.com/vtapi/v2/file/scan'
+file_extensions = ['.exe', '.dll']
 params = dict(apikey='')
 i = 0
 def ScanFile(f, i1):
-    print(f, " ")
     global count
     with open(f, 'rb') as file:
           files = dict(file=(f[f.rfind("\\") + 1:], file))
@@ -36,8 +36,12 @@ def main():
     for root, dirs, files in os.walk(directory):
         for f in files:
             if directory + '\\' + f != os.path.abspath(__file__) and f != "results.txt":
-                print("Загружается файл " + os.path.join(root, f))
-                thread = Thread(target=ScanFile, args=(os.path.join(root, f), i))
+                path = os.path.join(root, f)
+                filename = path[path.rfind('\\') + 1:]
+                if filename[filename.rfind('.'):] not in file_extensions:
+                    continue
+                print("Загружается файл " + filename)
+                thread = Thread(target=ScanFile, args=(path, i))
                 thread.start()
                 time.sleep(0.5)
                 i += 1
